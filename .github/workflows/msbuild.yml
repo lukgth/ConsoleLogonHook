@@ -5,11 +5,8 @@
 
 name: MSBuild
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: workflow_dispatch
+
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -42,3 +39,9 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v5.0.0
+      with:
+        path: D:\a\ConsoleLogonHook\ConsoleLogonHook\x64\Release
+    # The desired behavior if no files are found using the provided path.
